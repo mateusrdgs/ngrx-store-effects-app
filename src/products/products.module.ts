@@ -16,7 +16,7 @@ import * as fromContainers from './containers';
 import * as fromServices from './services';
 
 // reducers
-import * as fromStore from './store';
+import { reducers } from './store';
 
 // routes
 export const ROUTES: Routes = [
@@ -40,9 +40,7 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES),
-    StoreModule.forFeature('products', {
-      ...fromStore
-    })
+    StoreModule.forFeature('products', reducers)
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],
