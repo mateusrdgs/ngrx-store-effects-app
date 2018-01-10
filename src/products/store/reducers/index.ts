@@ -14,7 +14,9 @@ export const getProductsState = createFeatureSelector<ProductsState>('products')
 
 // pizzas state
 export const getPizzasState = createSelector(getProductsState, (state: ProductsState) => state.pizzas);
-export const getAllLoading = createSelector(getPizzasState, fromPizzas.getPizzasLoading);
-export const getAllLoaded = createSelector(getPizzasState, fromPizzas.getPizzasLoaded);
-export const getAllPizzas = createSelector(getPizzasState, fromPizzas.getPizzas);
-
+export const getPizzasLoading = createSelector(getPizzasState, fromPizzas.getPizzasLoading);
+export const getPizzasLoaded = createSelector(getPizzasState, fromPizzas.getPizzasLoaded);
+export const getPizzasEntities = createSelector(getPizzasState, fromPizzas.getPizzasEntities);
+export const getAllPizzas = createSelector(getPizzasEntities, (entities) => {
+  return Object.keys(entities).map(key => entities[parseInt(key, 10)]);
+});
