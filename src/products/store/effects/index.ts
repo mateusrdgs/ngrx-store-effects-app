@@ -1,7 +1,10 @@
 import { PizzasEffects } from './pizzas.effects';
+import { ToppingsEffects } from './toppings.effects';
 
 export const effects: any[] = [
-  PizzasEffects
+  PizzasEffects,
+  ToppingsEffects
 ];
 
 export * from './pizzas.effects'
+export * from './toppings.effects'
