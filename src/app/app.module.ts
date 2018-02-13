@@ -7,7 +7,7 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { StoreModule, MetaReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { reducers, CustomSerializer } from './store';
+import { reducers, CustomSerializer, effects } from './store';
 
 // not used in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -28,11 +28,15 @@ import { AppComponent } from './containers/app/app.component';
 
 // routes
 export const ROUTES: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'products' },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'products'
+  },
   {
     path: 'products',
     loadChildren: '../products/products.module#ProductsModule',
-  },
+  }
 ];
 
 @NgModule({
@@ -41,7 +45,7 @@ export const ROUTES: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(effects),
     StoreRouterConnectingModule,
     environment.development ? StoreDevtoolsModule.instrument() : [],
   ],

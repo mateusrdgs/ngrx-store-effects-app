@@ -14,6 +14,9 @@ import * as fromComponents from './components';
 // containers
 import * as fromContainers from './containers';
 
+// guards
+import * as fromGuards from './guards';
+
 // services
 import * as fromServices from './services';
 
@@ -24,16 +27,25 @@ import { reducers, effects } from './store';
 export const ROUTES: Routes = [
   {
     path: '',
+    canActivate: [fromGuards.PizzasGuard],
     component: fromContainers.ProductsComponent,
   },
   {
     path: 'new',
+    canActivate: [
+      fromGuards.PizzasGuard,
+      fromGuards.ToppingsGuard
+    ],
     component: fromContainers.ProductItemComponent,
   },
   {
     path: ':pizzaId',
+    canActivate: [
+      fromGuards.PizzaExistsGuard,
+      fromGuards.ToppingsGuard
+    ],
     component: fromContainers.ProductItemComponent,
-  },
+  }
 ];
 
 @NgModule({
@@ -46,7 +58,8 @@ export const ROUTES: Routes = [
     EffectsModule.forFeature(effects)
   ],
   providers: [
-    ...fromServices.services
+    ...fromServices.services,
+    ...fromGuards.guards
   ],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
